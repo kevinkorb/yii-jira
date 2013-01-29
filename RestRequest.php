@@ -9,7 +9,12 @@ class RestRequest {
     protected $acceptType;
     protected $responseBody; 
     protected $responseInfo;  
-  
+
+	public function getParsedResponse()
+	{
+		return json_decode($this->responseBody, true);
+	}
+
     public function openConnect ($url = null, $verb = 'GET', $requestBody = null, $filename = null){  
         $this->url               = $url;  
         $this->verb              = $verb;  

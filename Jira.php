@@ -25,6 +25,21 @@ class Jira {
 		$this->request->execute();  
 		echo '<pre>' . print_r($this->request, true) . '</pre>';
 	}
+	public function getAvailableTransitions($issueKey)
+	{
+		$this->request->openConnect('http://'.$this->host.':'.$this->port.'/rest/api/latest/issue/'.$issueKey.'/transitions?expand=transitions.fields', 'GET');
+		$this->request->execute();
+		return $this->request->getParsedResponse();
+	}
+	public function postTransitions($issueKey, $json)
+	{
+		$this->request->openConnect('http://'.$this->host.':'.$this->port.'/rest/api/latest/issue/'.$issueKey.'/transitions', 'POST', $json);
+		$this->request->execute();
+		var_dump($this->request);
+		return $this->request->getParsedResponse();
+	}
+
+
 	public function queryIssue($query){
 		
 		function createPairs($obj){
@@ -40,12 +55,4 @@ class Jira {
 		echo '<pre>' . print_r($this->request, true) . '</pre>';
 	}
 	
-}
-
-class KIssue
-{
-
-	public $description;
-	public
-
 }
