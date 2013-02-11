@@ -9,6 +9,10 @@ class KJira extends CApplicationComponent
 
 	protected $jira;
 
+	/**
+	 *
+	 * return Jira
+	 */
 	public function getInstance()
 	{
 		if($this->jira)
@@ -25,12 +29,10 @@ class KJira extends CApplicationComponent
 		return $this->jira;
 	}
 
-	public function queryIssue()
+	public function queryIssue($jql)
 	{
-		$query= new stdclass();
-		$query->assignee = 'kevin';
-		$query->project = 'DE';
-		var_dump($this->getInstance()->queryIssue($query));
+		return $this->getInstance()
+			->queryIssue($jql);
 	}
 
 	public function changeStatus($key, $status_text)
@@ -41,8 +43,8 @@ class KJira extends CApplicationComponent
 		{
 			if($transition['name'] == $status_text)
 			{
-				var_dump($transition)
-;				$this->setTransition($key, $transition['id']);
+				var_dump($transition);
+				$this->setTransition($key, $transition['id']);
 			}
 		}
 	}
