@@ -35,6 +35,14 @@ class KJira extends CApplicationComponent
 			->queryIssue($jql);
 	}
 
+	public function getAllSprints(){
+		return $this->getInstance()->getAllSprints();
+	}
+
+	public function getRepidViewBacklogById($id){
+		return $this->getInstance()->getRepidViewBacklogById($id);
+	}
+
 	public function changeStatus($key, $status_text)
 	{
 		$transitions = $this->getAvailableTransitions($key);

@@ -39,9 +39,25 @@ class Jira {
 		return $this->request->getParsedResponse();
 	}
 
+	public function getRepidViewBacklogById($id){
+		$this->request->openConnect('https://'.$this->host.':'.$this->port.'/rest/greenhopper/latest/xboard/plan/backlog/data.json?rapidViewId=' . $id);
+		$this->request->execute();
+		return $this->request->getParsedResponse();
+	}
+
+	public function getAllSprints(){
+		$this->request->openConnect('https://'.$this->host.':'.$this->port.'/rest/greenhopper/latest/rapidview');
+		$this->request->execute();
+		return $this->request->getParsedResponse();
+	}
+
+	public function getSprintById($id){
+		$this->request->openConnect('https://'.$this->host.':'.$this->port.'/rest/greenhopper/latest/sprints/'.$id);
+		$this->request->execute();
+		return $this->request->getParsedResponse();
+	}
 
 	public function queryIssue($jql){
-
 		$this->request->OpenConnect('https://'.$this->host.':'.$this->port.'/rest/api/latest/search?jql='. $jql);
 		$this->request->execute();
 		return $this->request->getParsedResponse();
