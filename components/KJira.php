@@ -29,10 +29,22 @@ class KJira extends CApplicationComponent
 		return $this->jira;
 	}
 
-	public function queryIssue($jql)
+	public function queryIssue($jql, $maxResults = 50)
 	{
 		return $this->getInstance()
-			->queryIssue($jql);
+			->queryIssue($jql, $maxResults);
+	}
+
+	public function getWorklogForIssue($issueIdOrKey){
+		return $this->getInstance()->getWorklogForIssue($issueIdOrKey);
+	}
+
+	public function getAllProjects(){
+		return $this->getInstance()->getAllProjects();
+	}
+
+	public function getTimesheet(){
+		return $this->getInstance()->getTimesheet();
 	}
 
 	public function getAllSprints(){

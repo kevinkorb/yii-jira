@@ -1,5 +1,6 @@
 <?php
 class Jira {
+
 	protected $project;
 	protected $host;
 	protected $port;
@@ -57,10 +58,24 @@ class Jira {
 		return $this->request->getParsedResponse();
 	}
 
-	public function queryIssue($jql){
-		$this->request->OpenConnect('https://'.$this->host.':'.$this->port.'/rest/api/latest/search?jql='. $jql);
+	public function queryIssue($jql, $maxResults = 50){
+		$this->request->OpenConnect('https://'.$this->host.':'.$this->port.'/rest/api/latest/search?jql='. $jql . "&maxResults=$maxResults");
 		$this->request->execute();
 		return $this->request->getParsedResponse();
+	}
+
+	public function getWorklogForIssue($issueIdOrKey){
+		$this->request->OpenConnect($url = 'https://'.$this->host.':'.$this->port.'/rest/api/latest/issue/'.$issueIdOrKey.'/worklog');
+		$this->request->execute();
+		return $this->request->getParsedResponse();
+	}
+
+
+	public function getAllProjects(){
+		$this->request->OpenConnect('https://'.$this->host.':'.$this->port."/rest/api/latest/project");
+		$this->request->execute();
+		return $this->request->getParsedResponse();
+
 	}
 	
 }
