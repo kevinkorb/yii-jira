@@ -43,6 +43,11 @@ class KJira extends CApplicationComponent
 		return $this->getInstance()->getAllProjects();
 	}
 
+	public function getProjectByKey($projectIdOrKey)
+	{
+		return $this->getInstance()->getProjectByKey($projectIdOrKey);
+	}
+
 	public function getTimesheet(){
 		return $this->getInstance()->getTimesheet();
 	}

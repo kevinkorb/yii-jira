@@ -64,6 +64,12 @@ class Jira {
 		return $this->request->getParsedResponse();
 	}
 
+	public function getProjectByKey($projectIdOrKey){
+		$this->request->OpenConnect($url = 'https://'.$this->host.':'.$this->port.'/rest/api/latest/project/'.$projectIdOrKey);
+		$this->request->execute();
+		return $this->request->getParsedResponse();
+	}
+
 	public function getWorklogForIssue($issueIdOrKey){
 		$this->request->OpenConnect($url = 'https://'.$this->host.':'.$this->port.'/rest/api/latest/issue/'.$issueIdOrKey.'/worklog');
 		$this->request->execute();
