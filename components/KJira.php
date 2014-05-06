@@ -35,6 +35,22 @@ class KJira extends CApplicationComponent
 			->queryIssue($jql, $maxResults);
 	}
 
+	public function getLabelsForIssue($issueKey){
+		$issueResponse = $this->getIssueByKey($issueKey);
+		if(isset($issueResponse['fields']['labels'])){
+			return $issueResponse['fields']['labels'];
+		}
+		return null;
+	}
+
+	public function getWorklog($startDate, $endDate, $targetGroup){
+		return $this->getInstance()->getWorklog($startDate, $endDate, $targetGroup);
+	}
+
+	public function logTime($branch, $time, $comment){
+		return $this->getInstance()->logTime($branch, $time, $comment);
+	}
+
 	public function getWorklogForIssue($issueIdOrKey){
 		return $this->getInstance()->getWorklogForIssue($issueIdOrKey);
 	}
@@ -52,6 +68,14 @@ class KJira extends CApplicationComponent
 		return $this->getInstance()->getTimesheet();
 	}
 
+	public function getIssueByKey($key){
+		return $this->getInstance()->getIssueByKey($key);
+	}
+
+	public function addComment($key, $comment){
+		$this->getInstance()->addComment($key, $comment);
+	}
+
 	public function getAllSprints(){
 		return $this->getInstance()->getAllSprints();
 	}
@@ -63,12 +87,12 @@ class KJira extends CApplicationComponent
 	public function changeStatus($key, $status_text)
 	{
 		$transitions = $this->getAvailableTransitions($key);
-		var_dump($transitions);
+//		var_dump($transitions);
 		foreach($transitions['transitions'] AS $transition)
 		{
 			if($transition['name'] == $status_text)
 			{
-				var_dump($transition);
+//				var_dump($transition);
 				$this->setTransition($key, $transition['id']);
 			}
 		}
@@ -83,7 +107,7 @@ class KJira extends CApplicationComponent
 			$comment
 		);
 		@$record->transition->id = $transition_id;
-		var_dump($record);
+//		var_dump($record);
 		return $this->getInstance()->postTransitions($key, $record);
 	}
 

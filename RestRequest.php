@@ -28,7 +28,11 @@ class RestRequest {
   
         if ($this->requestBody !== null || $this->filename !== null)
             $this->buildPostBody();  
-    }  
+    }
+
+	public function getResponseBody(){
+		return $this->responseBody;
+	}
   
     public function flush (){  
         $this->requestBody       = null;  
@@ -39,8 +43,8 @@ class RestRequest {
     }  
   
     public function execute (){  
-	    $ch = curl_init();  
-	    $this->setAuth($ch);  
+	    $ch = curl_init();
+	    $this->setAuth($ch);
 	  
 	    try{  
 	        switch (strtoupper($this->verb)){  
